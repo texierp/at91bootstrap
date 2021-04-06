@@ -251,7 +251,7 @@ NOSTDINC_FLAGS := -nostdinc -isystem "$(shell $(CC) -print-file-name=include)"
 
 CPPFLAGS=$(NOSTDINC_FLAGS) -ffunction-sections -g -Os -Wall \
 	-mno-unaligned-access \
-	-fno-stack-protector -fno-common -fno-builtin -fno-jump-tables -fno-pie \
+	-fno-stack-protector -fno-common -fno-builtin -fno-jump-tables -fno-pie -nostartfiles \
 	-I$(INCL) -Icontrib/include -Iinclude -Ifs/include \
 	-I$(CONFIG)/at91bootstrap-config \
 	-DAT91BOOTSTRAP_VERSION=\"$(VERSION)$(REV)$(SCMINFO)\" -DCOMPILE_TIME="\"$(BUILD_DATE)\""
@@ -283,7 +283,7 @@ endif
 #    --cref:    add cross reference to map file
 #  -lc 	   : 	tells the linker to tie in newlib
 #  -lgcc   : 	tells the linker to tie in newlib
-LDFLAGS=-nostartfiles -Map=$(BINDIR)/$(BOOT_NAME).map --cref -static
+LDFLAGS=-Map=$(BINDIR)/$(BOOT_NAME).map --cref -static
 LDFLAGS+=-T $(link_script) $(GC_SECTIONS) -Ttext $(LINK_ADDR)
 
 ifneq ($(DATA_SECTION_ADDR),)
